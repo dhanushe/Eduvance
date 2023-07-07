@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class name extends StatefulWidget {
   const name({super.key});
 
@@ -8,6 +10,8 @@ class name extends StatefulWidget {
 class _nameState extends State<name> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: const Text("chat gp3")),
+    );
   }
 }
