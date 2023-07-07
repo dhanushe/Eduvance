@@ -29,7 +29,7 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
   Future toggleRecording() => SpeechAPI.toggleRecording(
         onResult: (text) {
           setState(() => _text = text);
-          print('text: $_text');
+          // print('text: $_text');
         },
       );
 
@@ -70,7 +70,7 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
-                _isPlaying ? 'Currently Recording' : 'Currently Paused',
+                _isPlaying ? 'Recording' : 'Paused',
                 style: TextStyle(
                   color:
                       _isPlaying ? Colors.green[700] : Colors.deepOrange[700],
@@ -88,7 +88,8 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
           onPressed: () {
             SpeechAPI.cancelRecording();
             SpeechAPI.stopRecording();
-            _text = 'Listening...';
+            // _text = 'Listening...';
+            print(_text);
             Navigator.pop(context);
           },
         ),

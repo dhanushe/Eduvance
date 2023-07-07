@@ -232,7 +232,7 @@ class TranscriptCard extends StatelessWidget {
             ),
             const Spacer(),
             const Flexible(
-                child: Text('5th July',
+                child: Text('July 5, 2023',
                     style: TextStyle(
                         color: Colors.red,
                         fontSize: 15,
