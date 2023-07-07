@@ -11,7 +11,7 @@ class _nameState extends State<name> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("chat gp3")),
+      appBar: AppBar(title: const Text("chat gpt")),
     );
   }
 }

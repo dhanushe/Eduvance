@@ -1,4 +1,6 @@
+import 'package:eduscript/transcription_screen.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -55,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           color: const Color(0xFF8b8c92),
           onPressed: () {},
         ),
-// Trailing
+        // Trailing
         actions: <Widget>[
           IconButton(
             icon: const Icon(FeatherIcons.search),
@@ -95,11 +97,69 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          _showOverlay(context);
+        },
         tooltip: 'Increment',
         backgroundColor: Colors.red.shade300,
-        child: const Icon(Icons.add, color: Colors.white),
+        child: const Icon(FeatherIcons.mic, color: Colors.white),
       ),
+    );
+  }
+
+  void _showOverlay(BuildContext context) {
+    // Show Cupertino Alert with Text Field
+    showDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: const Column(
+                children: [
+                  Text('Transcribe'),
+                  SizedBox(height: 10),
+                ],
+              ),
+              // Text Field
+              content: CupertinoTextField(
+                placeholder: 'Title',
+                autofocus: true,
+                controller: TextEditingController(),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: const Text('Transcribe'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Show Transcription Screen animated from bottom
+                    Navigator.of(context).push(_createRoute());
+                  },
+                ),
+              ],
+            ));
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const TranscriptionScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }
