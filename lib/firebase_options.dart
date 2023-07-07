@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '983100080605',
     projectId: 'eduscript-d7f91',
     storageBucket: 'eduscript-d7f91.appspot.com',
-    iosClientId: '983100080605-3ds21228u6qct34cpbg1g2o3ungtva5f.apps.googleusercontent.com',
+    iosClientId:
+        '983100080605-3ds21228u6qct34cpbg1g2o3ungtva5f.apps.googleusercontent.com',
     iosBundleId: 'com.example.eduscript',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '983100080605',
     projectId: 'eduscript-d7f91',
     storageBucket: 'eduscript-d7f91.appspot.com',
-    iosClientId: '983100080605-6kgf9ro4rdcgfthamlq7cv8941ggb0gb.apps.googleusercontent.com',
+    iosClientId:
+        '983100080605-6kgf9ro4rdcgfthamlq7cv8941ggb0gb.apps.googleusercontent.com',
     iosBundleId: 'com.example.eduscript.RunnerTests',
   );
 }
