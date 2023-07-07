@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "983100080605",
+    "project_id": "eduscript-d7f91",
+    "storage_bucket": "eduscript-d7f91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983100080605:android:e6e5bfaca28955cb76f634",
+        "android_client_info": {
+          "package_name": "com.example.eduscript"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983100080605-be609pqetjjptskjug19a6j9322lbf0v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqUU-zvVzpBUlUQ-dqF7x-n_m36R97XFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983100080605-be609pqetjjptskjug19a6j9322lbf0v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "983100080605-3ds21228u6qct34cpbg1g2o3ungtva5f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eduscript"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
