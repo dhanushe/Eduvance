@@ -2,7 +2,6 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class TranscriptionScreen extends StatefulWidget {
   const TranscriptionScreen({super.key});
@@ -16,18 +15,6 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
   final stt.SpeechToText _speech = stt.SpeechToText();
   String _text = 'Listening...';
   final double _confidence = 1.0;
-
-  void writeData(data) {
-    final databaseRef = FirebaseDatabase.instance.ref();
-
-    databaseRef.child('transcripts').set({
-      'transcript': data,
-    }).then((_) {
-      print('Data written successfully');
-    }).catchError((error) {
-      print('Error writing data: $error');
-    });
-  }
 
   @override
   void initState() {
@@ -102,7 +89,6 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
             SpeechAPI.cancelRecording();
             SpeechAPI.stopRecording();
             // _text = 'Listening...';
-            writeData(_text);
             print(_text);
             Navigator.pop(context);
           },
