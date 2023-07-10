@@ -1,7 +1,11 @@
 import 'package:feather_icons/feather_icons.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:speech_to_text/speech_to_text.dart';
+// import 'package:intl/intl.dart';
+
+TextEditingController titleController = TextEditingController();
 
 class TranscriptionScreen extends StatefulWidget {
   const TranscriptionScreen({super.key});
@@ -16,8 +20,11 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
   String _text = 'Listening...';
   final double _confidence = 1.0;
 
+  late DatabaseReference dbRef;
+
   @override
   void initState() {
+    dbRef = FirebaseDatabase.instance.ref().child('Recordings');
     // TODO: implement initState
     super.initState();
     print('starting transcription');
@@ -88,7 +95,18 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
           onPressed: () {
             SpeechAPI.cancelRecording();
             SpeechAPI.stopRecording();
-            _text = 'Listening...';
+
+            // final DateTime now = DateTime.now();
+            // final DateFormat formatter = DateFormat('yyyy-MM-dd');
+            // final String formatted = formatter.format(now);
+            Map<String, String> recording = {
+              'title': titleController.text,
+              'text': _text,
+              // 'date': formatted
+            };
+
+            dbRef.push().set(recording);
+            // _text = 'Listening...';
             Navigator.pop(context);
           },
         ),
