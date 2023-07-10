@@ -1,9 +1,10 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:speech_to_text/speech_to_text.dart';
-// import 'package:intl/intl.dart';
+import 'main.dart';
 
 TextEditingController titleController = TextEditingController();
 
@@ -96,13 +97,15 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
             SpeechAPI.cancelRecording();
             SpeechAPI.stopRecording();
 
-            // final DateTime now = DateTime.now();
-            // final DateFormat formatter = DateFormat('yyyy-MM-dd');
-            // final String formatted = formatter.format(now);
+            final DateTime now = DateTime.now();
+            final DateFormat formatter = DateFormat('yyyy-MM-dd');
+            String endTime = DateFormat('HH:mm:ss').format(now);
+            final String formatted = formatter.format(now);
             Map<String, String> recording = {
               'title': titleController.text,
               'text': _text,
-              // 'date': formatted
+              'date': formatted,
+              'time': endTime
             };
 
             dbRef.push().set(recording);
