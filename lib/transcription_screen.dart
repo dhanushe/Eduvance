@@ -1,15 +1,17 @@
+import 'package:eduscript/database.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:speech_to_text/speech_to_text.dart';
-import 'main.dart';
 
 TextEditingController titleController = TextEditingController();
 
 class TranscriptionScreen extends StatefulWidget {
-  const TranscriptionScreen({super.key});
+  TranscriptionScreen({super.key, required this.title});
+
+  // title
+  String title;
 
   @override
   State<TranscriptionScreen> createState() => _TranscriptionScreenState();
@@ -21,15 +23,14 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
   String _text = 'Listening...';
   final double _confidence = 1.0;
 
-  late DatabaseReference dbRef;
+  DatabaseMethods databaseMethods = DatabaseMethods();
 
   @override
   void initState() {
-    dbRef = FirebaseDatabase.instance.ref().child('Recordings');
-    // TODO: implement initState
     super.initState();
-    print('starting transcription');
-    _text = 'Listening...';
+    print('starting transcription, title is ${widget.title}');
+    _text =
+        'This is a sample transcript, talk to replace it with your own voice.';
     // toggleRecording();
     toggleRecording();
   }
@@ -99,17 +100,22 @@ class _TranscriptionScreenState extends State<TranscriptionScreen> {
 
             final DateTime now = DateTime.now();
             final DateFormat formatter = DateFormat('yyyy-MM-dd');
-            String endTime = DateFormat('HH:mm:ss').format(now);
+            // String endTime = DateFormat('HH:mm:ss').format(now);
             final String formatted = formatter.format(now);
             Map<String, String> recording = {
               'title': titleController.text,
               'text': _text,
-              'date': formatted,
-              'time': endTime
+              // make date in form month/day
+              'date': formatted.substring(5, 10),
+              // 'time': endTime
+              'wordCount': _text.split(' ').length.toString(),
             };
 
-            dbRef.push().set(recording);
-            // _text = 'Listening...';
+            print('recording: $recording');
+            _text = 'Listening...';
+
+            databaseMethods.addTranscriptToDB(recording);
+
             Navigator.pop(context);
           },
         ),
