@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduscript/database.dart';
 import 'package:eduscript/resource_card.dart';
 import 'package:eduscript/transcript_card.dart';
+import 'package:eduscript/transcript_detail.dart';
 import 'package:eduscript/transcription_screen.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -264,12 +265,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
-                          // Show a loading indicator
-                          showCupertinoDialog(
-                            context: context,
-                            builder: (context) => const CupertinoAlertDialog(
-                              title: Text('Loading'),
-                              content: CupertinoActivityIndicator(),
+                          // go to transcript detail screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const TranscriptDetailScreen(),
                             ),
                           );
                         },
@@ -298,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Transcription ${index + 1}',
+                                    'Transcription Photosynthesis',
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -306,7 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   const SizedBox(height: 10),
                                   const Text(
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nisl nisl ultricies.',
+                                    'During the photosynthesis class, students learned about the fundamental process by which plants convert sunlight into energy. The instructor explained how chlorophyll, the green pigment in plant cells, captures light energy and transforms carbon dioxide and water into glucose and oxygen. Through interactive visuals and engaging discussions, the students gained a deeper understanding of the role photosynthesis plays in sustaining life on Earth and its significance in the global ecosystem. They left the class with a newfound appreciation for the intricate wonders of nature\'s energy production system.',
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
@@ -344,19 +345,38 @@ class _MyHomePageState extends State<MyHomePage> {
             FirebaseFirestore.instance.collection('transcripts').snapshots(),
         builder: ((context, snapshot) {
           return snapshot.hasData
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: (snapshot.data!).docs.length,
-                  itemBuilder: ((context, index) {
-                    QueryDocumentSnapshot<Object?> data =
-                        (snapshot.data!).docs[index];
-                    return TranscriptCard(
-                      title: (data['title'] as String),
-                      subtitle: data['text'] as String,
-                      wordCount: data['wordCount'],
-                      date: data['date'] as String,
-                    );
-                  }),
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: (snapshot.data!).docs.length,
+                    itemBuilder: ((context, index) {
+                      QueryDocumentSnapshot<Object?> data =
+                          (snapshot.data!).docs[index];
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // go to TranscriptDetailScreen
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TranscriptDetailScreen(),
+                                ),
+                              );
+                            },
+                            child: TranscriptCard(
+                              title: (data['title'] as String),
+                              subtitle: data['text'] as String,
+                              wordCount: data['wordCount'],
+                              date: data['date'] as String,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+                    }),
+                  ),
                 )
               : const Center(child: CircularProgressIndicator());
         }),
