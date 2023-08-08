@@ -1,3 +1,2 @@
 # Eduvance
-Hackathon Submission
-Dhanush Eashwar, Aryaman Kukal
+Hackathon Submission by Dhanush Eashwar, and Aryaman Kukal
