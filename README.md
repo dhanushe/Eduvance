@@ -1,2 +1,3 @@
-# EduScript
- Real-time transcripts of inclass lectures
+# Eduvance
+Hackathon Submission
+Dhanush Eashwar, Aryaman Kukal
